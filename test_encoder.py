@@ -3,8 +3,9 @@ import numpy as np
 
 
 def test_unicode_encoder_simple():
+    encoder = Encoder(unicode_encoder_simple)
     unicode_str = open('Albert_Schweitzer.txt').read()
     size = 5000
-    (unicode_str_encoding,encodings) = unicode_encoder_simple(unicode_str,{},size_encoding=size)
+    (unicode_str_encoding,encodings) = encoder.encode(unicode_str,{},size_encoding=size)
 
-    assert unicode_str_encoding.shape == (len(unicode_str)*size,)
+    assert len(unicode_str_encoding) == len(unicode_str)

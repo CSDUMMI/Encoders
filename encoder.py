@@ -22,17 +22,15 @@ def unicode_encoder_simple  (
                             encodings = {},
                             size_encoding = 256
                             ):
-    encoding = np.zeros((len(msg),size_encoding),dtype=bool)
 
+    encoding = []
     for i in range(len(msg)):
         if msg[i] in encodings:
-            encoding[i] = encodings[msg[i]]
+            encoding.append(encodings[str(msg[i])])
         else:
-            msg_i_encoding = np.random.randn(size_encoding) > 0
-            while msg_i_encoding.tostring() in encodings:
-                msg_i_encoding = np.random.randn(size_encoding)
-            encodings[msg[i]] = msg_i_encoding
-            encoding[i] = msg_i_encoding
-
-    encoding = encoding.flatten()
+            msg_i_encoding = (np.random.randn(size_encoding) > 0).tolist()
+            while str(msg_i_encoding) in encodings:
+                msg_i_encoding = (np.random.randn(size_encoding) > 0).tolist()
+            encodings[str(msg[i])] = msg_i_encoding
+            encoding.append(msg_i_encoding)
     return (encoding,encodings)
